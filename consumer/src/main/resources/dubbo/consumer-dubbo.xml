@@ -1,0 +1,18 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="consumer" />
+
+    <dubbo:registry address="127.0.0.1:2181" protocol="zookeeper" client="curator" />
+
+    <dubbo:protocol name="dubbo" host="localhost" port="20880" />
+
+    <dubbo:consumer client="netty" check="false" />
+
+    <!--不控制到方法暂时用注解-->
+    <!--<dubbo:reference id="userService" version="1.0.0"  interface="com.service.UserService" group="user" check="false" />-->
+    <dubbo:annotation package="com.consumer.service" />
+</beans>

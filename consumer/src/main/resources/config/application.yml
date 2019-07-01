@@ -1,0 +1,44 @@
+server:
+  port: 8082
+
+dubbo:
+  application:
+    # dubbo应用名称
+    name: consumer
+    # 日志配置
+    logger: log4j
+  registry:
+    # 注册中心地址
+    address: 127.0.0.1:2181
+    # 注册的协议，如zookeeper，multicast,redis等
+    protocol: zookeeper
+    # 使用的连接框架
+    client: curator
+    # 简化注册中心的url配置
+    simplified: true
+  consumer:
+    # 客户端使用的网络框架客户端
+    client: netty4
+    # 是否需要启动时检查用于服务端未启动时
+    check: false
+  protocols:
+    dubbo:
+      # 协议名称
+      name: dubbo
+      # 服务主机名
+      host: localhost
+      # 服务主机对应的协议端口
+      port: 20880
+      # 日志存放位置
+      accesslog: D:\dubbo\log\consumer.log
+      # 序列化的方式，kryo和fst
+      serialization: kryo
+      # 序列化的实现类
+      optimizer: com.serialization.SerializationOptimizerImpl
+    rmi:
+      # 协议名称
+      name: rmi
+      # 服务主机名
+      host: localhost
+      # 服务主机对应的协议端口
+      port: 20881

@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+dubbo:
+  application:
+    # dubbo应用名称
+    name: provider
+  registry:
+    # 注册中心地址
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+    client: curator
+  protocol:
+    # 协议名称
+    name: dubbo
+    # 协议端口号
+    port: 20880
+  scan:
+    #扫描的基础包，不添加好像不能连接到注册中心
+    base-packages: com.provider

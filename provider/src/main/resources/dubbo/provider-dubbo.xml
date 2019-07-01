@@ -1,0 +1,111 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="provider" logger="log4j">
+        <!--指定线程栈dump文件导出路径-->
+        <dubbo:parameter key="dump.directory" value="/tmp" />
+    </dubbo:application>
+
+    <!--
+        id: 注册中心的id
+        address: 注册中心地址
+        protocol: 注册的协议，如zookeeper，multicast,redis等
+        register: 只订阅，通常用于服务端，多用于在开发时配置
+        dynamic: 表示用于手动管理服务的上下线，多用于服务端
+        default: 是否是默认的注册中心
+        client: 使用的连接框架
+        simplified: 简化注册中心的url配置
+    -->
+    <dubbo:registry id="reg2181"
+            address="127.0.0.1:2181"
+            protocol="zookeeper"
+            client="curator"
+            dynamic="false"
+            simplified="true"/>
+
+    <!--多注册中心-->
+    <dubbo:registry id="reg2182"
+            address="127.0.0.1:2182"
+            protocol="zookeeper"
+
+            dynamic="false" default="false"/>
+
+    <!--
+        name: 连接协议名称
+        port: 协议端口号
+        下面3个适合只在服务端配置
+        dispatcher: 线程模型的消息转发策略,all表示全部通过线程池来处理，其他参数参考配置手册
+        threadpool: 线程池类型，默认fixed
+        threads: 线程数量
+        accepts: 客户端的连接个数
+        accesslog: 日志存放位置
+        serialization: 序列化的方式，kryo和fst
+        optimizer: 序列化的实现类
+    -->
+    <dubbo:protocol
+            name="dubbo"
+            port="20880"
+            dispatcher="all"
+            threadpool="fixed"
+            threads="100"
+            accepts="10"
+            accesslog="D:\dubbo\log\provider.log"
+            serialization="kryo"
+            optimizer="com.serialization.SerializationOptimizerImpl"/>
+
+    <!--定义多个协议-->
+    <dubbo:protocol name="rmi" port="1099" />
+
+
+    <!--
+        token: 全局token变量，用于防止消费端绕过注册中心直接访问服务端全局token变量，用于防止消费端绕过注册中心直接访问服务端,可以指定值，也可以定义为true使他自己生成
+        server: 使用的通信网络框架
+    -->
+    <dubbo:provider token="true" server="netty4"/>
+
+
+    <!--
+     interfaceClass: 接口的class
+     group: 用于一个接口有多个的实现类时，需要配置分组来给消费者端调用
+     retries: 客户端调用失败时的重试次数,如果客户端没有提供重试次数，那么该参数生效
+     cluster: 集群容错配置，默认是failover
+     loadbalance: 负载均衡配置，默认是random
+     timeout: 方法调用的响应时间
+     protocol: 有多个协议是需要指定对应的协议来暴露服务
+     registry: 用于多注册中心注册
+     version: 当前服务的版本
+     delay: 延迟接口的暴露
+     actives: 允许的线程并发连接数，客户端配置该属性时客户端为准，一般与负载均衡的leastactive一起使用
+     connections: 客户端连接服务器的数量
+     token: 用于防止消费端绕过注册中心直接访问服务端
+    -->
+    <dubbo:service
+            interface="com.service.UserService"
+            group="user"
+            ref="userService"
+            retries="7"
+            loadbalance="leastactive"
+            timeout="500"
+            protocol="dubbo"
+            registry="reg2181,reg2182"
+            version="1.0.0"
+            delay="5000"
+            actives="5"
+            connections="5"
+            token="true">
+        <dubbo:method
+                name="sayHello"
+                retries="5"
+                timeout="100"
+                actives="10" />
+    </dubbo:service>
+
+    <!--服务分组-->
+    <dubbo:service interface="com.service.UserService"
+                   group="provider"
+                   ref="providerUserService"
+                   protocol="rmi"/>
+</beans>
