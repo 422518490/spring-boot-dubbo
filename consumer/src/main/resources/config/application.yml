@@ -42,3 +42,13 @@ dubbo:
       host: localhost
       # 服务主机对应的协议端口
       port: 20881
+  #-----------begin使用配置中心进行配置，在dubbo admin进行配置处理-------------
+  config-center:
+    address: zookeeper://127.0.0.1:2181
+    namespace: consumer
+    #dubbo配置信息
+    #dubbo.registry.address=127.0.0.1:2181
+    #dubbo.registry.protocol=zookeeper
+    #dubbo.registry.client=curator
+    #dubbo.registry.simplified=true
+  #-----------end-------------

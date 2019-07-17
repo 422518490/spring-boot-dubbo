@@ -9,6 +9,8 @@
         <dubbo:parameter key="dump.directory" value="/tmp" />
     </dubbo:application>
 
+    <dubbo:config-center address="zookeeper://127.0.0.1:2181" namespace="provider" />
+
     <!--
         id: 注册中心的id
         address: 注册中心地址
