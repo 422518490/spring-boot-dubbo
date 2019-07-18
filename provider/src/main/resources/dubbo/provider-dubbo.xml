@@ -82,7 +82,8 @@
      registry: 用于多注册中心注册
      version: 当前服务的版本
      delay: 延迟接口的暴露
-     actives: 允许的线程并发连接数，客户端配置该属性时客户端为准，一般与负载均衡的leastactive一起使用
+     actives: 允许的客户端线程并发连接数，客户端配置该属性时客户端为准，一般与负载均衡的leastactive一起使用
+     executes: 服务端的并发线程数
      connections: 客户端连接服务器的数量
      token: 用于防止消费端绕过注册中心直接访问服务端
     -->
@@ -98,6 +99,7 @@
             version="1.0.0"
             delay="5000"
             actives="5"
+            executes="6"
             connections="5"
             token="true">
         <dubbo:method
