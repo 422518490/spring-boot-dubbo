@@ -1,12 +1,12 @@
 package com.consumer.controller;
 
 import com.consumer.service.ConsumerUserService;
-/*import org.apache.curator.CuratorZookeeperClient;
+import org.apache.curator.CuratorZookeeperClient;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import org.apache.zookeeper.data.Stat;*/
+import org.apache.zookeeper.data.Stat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +33,7 @@ public class UserController {
         System.out.println(sayHello);
     }
 
-    /*@DeleteMapping(value = "/removeDubbo")
+    @DeleteMapping(value = "/removeDubbo")
     public void deletZk() throws Exception {
         RetryPolicy policy = new ExponentialBackoffRetry(1000,3);
         CuratorFramework client
@@ -49,5 +49,5 @@ public class UserController {
         if (Optional.ofNullable(stat).isPresent()){
            client.delete().guaranteed().deletingChildrenIfNeeded().forPath(node);
         }
-    }*/
+    }
 }

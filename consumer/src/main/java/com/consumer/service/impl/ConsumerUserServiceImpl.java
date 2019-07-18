@@ -28,7 +28,7 @@ public class ConsumerUserServiceImpl implements ConsumerUserService {
      * version: 当前服务调用的版本
      * cache: 用于结果缓存
      * generic: 表示用于泛化，具体参考官网例子
-     * mock: 容错处理
+     * mock: 容错处理,true--有mock实现则调用，false--不去调用mock，还可以直接调用mock实现类
      * actives: 线程并发的调用数量，一般与负载均衡的leastactive一起使用
      * loadbalance: 负载均衡
      * connections: 客户端连接服务器的数量
