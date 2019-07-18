@@ -12,6 +12,8 @@ dubbo:
     address: 127.0.0.1:2181
     # 注册的协议，如zookeeper，multicast,redis等
     protocol: zookeeper
+    # 自定义注册中心
+    #protocol: mysql
     # 使用的连接框架
     client: curator
     # 简化注册中心的url配置
@@ -45,7 +47,7 @@ dubbo:
   #-----------begin使用配置中心进行配置，在dubbo admin进行配置处理-------------
   config-center:
     address: zookeeper://127.0.0.1:2181
-    namespace: consumer
+    #namespace: consumer
     #dubbo配置信息
     #dubbo.registry.address=127.0.0.1:2181
     #dubbo.registry.protocol=zookeeper
