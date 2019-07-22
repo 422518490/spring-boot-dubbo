@@ -48,6 +48,8 @@
         accesslog: 日志存放位置
         serialization: 序列化的方式，kryo和fst
         optimizer: 序列化的实现类
+        buffer: 网络读写缓冲区大小
+        payload: 请求及响应数据包大小限制，单位：字节,8388608 = 8M
     -->
     <dubbo:protocol
             name="dubbo"
@@ -58,7 +60,9 @@
             accepts="10"
             accesslog="D:\dubbo\log\provider.log"
             serialization="kryo"
-            optimizer="com.serialization.SerializationOptimizerImpl"/>
+            optimizer="com.serialization.SerializationOptimizerImpl"
+            buffer="8192"
+            payload="8388608"/>
 
     <!--定义多个协议-->
     <dubbo:protocol name="rmi" port="1099" />
