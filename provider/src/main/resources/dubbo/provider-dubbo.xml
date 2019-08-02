@@ -71,8 +71,10 @@
     <!--
         token: 全局token变量，用于防止消费端绕过注册中心直接访问服务端全局token变量，用于防止消费端绕过注册中心直接访问服务端,可以指定值，也可以定义为true使他自己生成
         server: 使用的通信网络框架
+        export: 是否暴露服务出去给别人使用
+        delay: 延迟加载
     -->
-    <dubbo:provider token="true" server="netty4"/>
+    <dubbo:provider token="true" server="netty4" export="true" delay="5"/>
 
 
     <!--
@@ -90,6 +92,7 @@
      executes: 服务端的并发线程数
      connections: 客户端连接服务器的数量
      token: 用于防止消费端绕过注册中心直接访问服务端
+     export: 是否暴露服务出去给别人使用
     -->
     <dubbo:service
             interface="com.service.UserService"
@@ -105,6 +108,7 @@
             actives="5"
             executes="6"
             connections="5"
+            export="true"
             token="true">
         <dubbo:method
                 name="sayHello"
