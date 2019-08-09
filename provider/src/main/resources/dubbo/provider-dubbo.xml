@@ -93,6 +93,8 @@
      connections: 客户端连接服务器的数量
      token: 用于防止消费端绕过注册中心直接访问服务端
      export: 是否暴露服务出去给别人使用
+     weight: 服务权重
+     warmup: 预热的时间值，在loadbalance中getWeight使用到
     -->
     <dubbo:service
             interface="com.service.UserService"
@@ -108,6 +110,8 @@
             actives="5"
             executes="6"
             connections="5"
+            weight="5"
+            warmup="50000"
             export="true"
             token="true">
         <dubbo:method

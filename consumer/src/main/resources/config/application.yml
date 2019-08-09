@@ -23,6 +23,8 @@ dubbo:
     client: netty4
     # 是否需要启动时检查用于服务端未启动时
     check: false
+    # 使用fork cluster的时候配置
+    #forks: 5
   protocols:
     dubbo:
       # 协议名称
